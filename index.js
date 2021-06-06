@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/blog_database', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Express config
 const app = express();
@@ -14,7 +15,7 @@ app.listen(4000, ()=>{
 });
 
 //Mongoose config
-mongoose.connect('mongodb://localhost/blog_database', {useNewUrlParser:true});
+
 
 //Routes
 app.get('/', (req, res)=>{

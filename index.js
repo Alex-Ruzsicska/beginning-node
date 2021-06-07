@@ -23,8 +23,10 @@ mongoose.connect('mongodb://localhost/blog_database', { useNewUrlParser: true, u
 
 
 //Routes
-app.get('/', (req, res)=>{
-    res.render('index');
+app.get('/', async (req, res)=>{
+    const posts = await post.find({});
+    console.log(posts)
+    res.render('index',{posts});
 });
 
 app.get('/about', (req, res)=>{
@@ -43,8 +45,8 @@ app.get('/post/new', (req, res)=>{
     res.render('create');
 });
 
-app.post('/post/store', (req,res)=>{
-    post.create(req.body,(error, blogpost)=>{
+app.post('/post/store', async (req,res)=>{
+    await post.create(req.body,(error, blogpost)=>{
         console.log(error, blogpost);
     });
     res.redirect('/');

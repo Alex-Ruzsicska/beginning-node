@@ -25,7 +25,6 @@ mongoose.connect('mongodb://localhost/blog_database', { useNewUrlParser: true, u
 //Routes
 app.get('/', async (req, res)=>{
     const posts = await post.find({});
-    console.log(posts)
     res.render('index',{posts});
 });
 

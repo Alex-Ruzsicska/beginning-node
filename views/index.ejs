@@ -24,7 +24,7 @@
                     <!-- Post preview-->
                     <%for(var i=0;i<posts.length;i++){%>
                         <div class="post-preview">
-                            <a href="post.html">
+                            <a href="/post/<%=posts[i]._id%>">
                                 <h2 class="post-title">
                                     <%= posts[i].title%>
                                 </h2>
@@ -34,8 +34,8 @@
                             </a>
                             <p class="post-meta">
                                 Posted by
-                                <a href="#!">Start Bootstrap</a>
-                                on September 24, 2021
+                                <a href="#!"><%= posts[i].username%></a>
+                                <%= posts[i].datePosted.toDateString()%>
                             </p>
                         </div>
                         <!-- Divider-->

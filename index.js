@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
+const fileUpload = require('express-fileupload');
 
 const mongoose = require('mongoose');
 const post = require('./models/Post');
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(fileUpload());
 app.set('view engine', 'ejs');
 
 app.listen(4000, ()=>{
@@ -45,11 +47,16 @@ app.get('/post/:id', async (req, res)=>{
     res.render('post',{ blogpost });
 });
 
-app.post('/post/store', async (req,res)=>{
-    await post.create(req.body,(error, blogpost)=>{
-        console.log(error, blogpost);
+app.post('/post/store', (req,res)=>{
+    // console.log(req.files.image);
+    let image = req.files.image;
+    image.mv(path.resolve(__dirname, 'public/assets/img', image.name),
+    async (error)=>{
+        await post.create(req.body,(error, blogpost)=>{
+            console.log(error, blogpost);
+        });
+        res.redirect('/');
     });
-    res.redirect('/');
 });
 
 
